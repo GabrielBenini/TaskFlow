@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
@@ -23,8 +24,10 @@ public class Task {
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
     private statusEnum status;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
 
