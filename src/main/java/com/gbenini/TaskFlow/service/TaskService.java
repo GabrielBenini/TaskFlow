@@ -1,5 +1,6 @@
 package com.gbenini.TaskFlow.service;
 
+import com.gbenini.TaskFlow.exception.ResourceNotFoundException;
 import com.gbenini.TaskFlow.model.dto.TaskRequestDTO;
 import com.gbenini.TaskFlow.model.dto.TaskResponseDTO;
 import com.gbenini.TaskFlow.model.entity.Task;
@@ -35,7 +36,7 @@ public class TaskService {
     public TaskResponseDTO findTaskById(Long id){
 
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
 
         return TaskResponseDTO.fromEntity(task);
 
@@ -44,7 +45,7 @@ public class TaskService {
     public TaskResponseDTO updateTaskById(Long id, TaskRequestDTO requestDTO){
 
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
 
         task.setTitle(requestDTO.title());
         task.setDescription(requestDTO.description());
@@ -59,7 +60,7 @@ public class TaskService {
     public void deleteTaskById(Long id){
 
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
 
         taskRepository.delete(task);
 
